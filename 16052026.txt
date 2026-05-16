@@ -1,0 +1,22 @@
+SHOW DATABASES;
+CREATE DATABASE VIT_Bhopal;
+USE VIT_Bhopal;
+CREATE TABLE Student (
+    student_name VARCHAR(50),
+    age INT,
+    cgpa DECIMAL(3,2),
+    year INT
+);
+INSERT INTO Student (student_name, age, cgpa, year) VALUES
+('Hitesh Samal', 18, 8.75, 1),
+('Anit Bose', 19, 9.10, 2),
+('Rohan Kumar', 20, 7.95, 3),
+('Snehal Patel', 21, 8.50, 4),
+('Aditya Singh', 18, 9.25, 1),
+('Neha Sharma', 20, 8.80, 3),
+('Kartik Joshi', 19, 7.60, 2);
+
+SELECT * FROM Student;
+
+DROP DATABASE VIT_Bhopal;
+SHOW DATABASES;
