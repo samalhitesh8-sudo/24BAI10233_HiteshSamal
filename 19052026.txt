@@ -1,0 +1,59 @@
+USE VIT_Bhopal;
+
+SELECT first_name FROM worker
+WHERE department = 'admin'
+AND salary = 100000;
+
+SELECT first_name FROM worker
+WHERE department = 'admin'
+OR salary > 100000;
+
+SELECT FIRST_NAME  FROM worker
+WHERE DEPARTMENT = 'Admin'
+OR SALARY > 100000;
+
+SELECT worker_id, first_name, department, salary FROM worker
+WHERE worker_id NOT IN (2, 3, 5);
+
+SELECT * FROM worker
+WHERE salary BETWEEN 90000 AND 120000;
+
+SELECT * FROM worker
+WHERE salary NOT BETWEEN 90000 AND 120000;
+
+SELECT *FROM worker
+WHERE salary BETWEEN 90000 AND 120000
+AND department NOT IN ('Admin', 'HR');
+
+SELECT * FROM worker
+WHERE first_name LIKE 'S%';
+
+SELECT * FROM worker
+WHERE first_name LIKE '_i%';
+
+SELECT * FROM worker
+WHERE first_name LIKE 'ra%';
+
+SELECT first_name AS Name, salary AS Income FROM worker;
+
+CREATE VIEW admin_workers AS
+SELECT worker_id, first_name, department
+FROM worker
+WHERE department = 'Admin';
+
+SELECT * FROM admin_workers;
+
+SELECT first_name, salary,
+       CASE
+           WHEN salary >= 100000 THEN 'High Salary'
+           WHEN salary >= 50000 THEN 'Medium Salary'
+           ELSE 'Low Salary'
+       END AS salary_status
+FROM worker;
+
+SELECT first_name FROM worker
+WHERE department = 'Admin'
+UNION
+SELECT first_name FROM worker
+WHERE salary > 100000;
+
