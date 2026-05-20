@@ -1,0 +1,93 @@
+CREATE DATABASE college;
+USE college;
+
+CREATE TABLE learners (
+    roll_no INT NOT NULL,
+    surname VARCHAR(100) NOT NULL,
+    given_name VARCHAR(100) NOT NULL,
+    marks INT,
+    CONSTRAINT uq_surname UNIQUE (surname)
+);
+
+DESC learners;
+
+INSERT INTO learners (roll_no, surname, given_name, marks)
+VALUES (11, 'Kumar', 'Rohit', 78);
+
+SELECT * FROM learners;
+
+ALTER TABLE learners
+ADD CONSTRAINT uq_marks UNIQUE (marks);
+
+ALTER TABLE learners
+DROP INDEX uq_marks;
+
+DROP TABLE learners;
+
+CREATE TABLE trainees (
+    reg_no INT NOT NULL,
+    age INT NOT NULL,
+    CONSTRAINT chk_age CHECK (age >= 18 AND age <= 25)
+);
+
+INSERT INTO trainees (reg_no, age)
+VALUES (21, 22);
+
+SELECT * FROM trainees;
+
+CREATE TABLE employee_info (
+    emp_id INT NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    first_name VARCHAR(100),
+    salary INT,
+    city VARCHAR(100) DEFAULT 'Chennai'
+);
+
+DESC employee_info;
+
+CREATE TABLE items (
+    item_id INT PRIMARY KEY,
+    item_name VARCHAR(100) NOT NULL,
+    serial_no INT NOT NULL UNIQUE
+);
+
+DESC items;
+
+INSERT INTO items (item_id, item_name, serial_no)
+VALUES (501, 'Printer', 77881);
+
+SELECT * FROM items;
+
+CREATE TABLE departments (
+    dept_id INT PRIMARY KEY,
+    dept_name VARCHAR(100) NOT NULL
+);
+
+INSERT INTO departments
+VALUES
+(1, 'Mobiles'),
+(2, 'Furniture');
+
+SELECT * FROM departments;
+
+DROP TABLE items;
+
+CREATE TABLE items (
+    item_id INT PRIMARY KEY,
+    item_name VARCHAR(100) NOT NULL,
+    dept_id INT,
+    CONSTRAINT fk_dept
+    FOREIGN KEY (dept_id)
+    REFERENCES departments(dept_id)
+);
+
+DESC items;
+
+INSERT INTO items (item_id, item_name, dept_id)
+VALUES (701, 'Bluetooth Speaker', 1);
+
+SELECT * FROM items;
+
+UPDATE items
+SET item_name = 'Wireless Speaker'
+WHERE item_id = 701;
