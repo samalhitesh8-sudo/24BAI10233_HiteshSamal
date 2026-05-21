@@ -1,0 +1,45 @@
+SELECT SUM(salary)
+FROM worker
+WHERE department = 'HR';
+
+SELECT department, SUM(salary)
+FROM worker
+GROUP BY department;
+
+SELECT department, SUM(salary)
+FROM employee
+GROUP BY department
+ORDER BY SUM(salary) DESC;
+
+SELECT department, SUM(salary)
+FROM worker
+GROUP BY department
+HAVING SUM(salary) < 300000;
+
+SELECT department, AVG(salary)
+FROM workers
+GROUP BY department
+ORDER BY AVG(salary) ASC
+LIMIT 2;
+
+SELECT department, SUM(salary)
+FROM worker
+GROUP BY department
+ORDER BY SUM(salary) ASC
+LIMIT 2;
+
+SELECT first_name, salary
+FROM worker
+WHERE department = 'Admin'
+ORDER BY salary DESC
+LIMIT 1 OFFSET 1;
+
+SELECT first_name, department, salary
+FROM worker w1
+WHERE salary = (
+    SELECT DISTINCT salary
+    FROM worker w2
+    WHERE w1.department = w2.department
+    ORDER BY salary DESC
+    LIMIT 1 OFFSET 1
+);
