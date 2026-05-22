@@ -1,0 +1,22 @@
+select * from HOD; 
+SELECT * FROM departments CROSS JOIN hod order by did asc;
+
+SELECT FIRST_NAME, DEPARTMENT, SALARY
+FROM Worker W1
+WHERE SALARY = (
+SELECT MAX(SALARY)
+FROM Worker W2
+WHERE W1.DEPARTMENT = W2.DEPARTMENT );
+
+Select * from departments INNER JOIN
+hod on departments.did= hod.hid;
+
+Select * from departments NATURAL JOIN hod;
+
+Select * from departments LEFT OUTER JOIN
+hod on (departments.did= hod.hid) order by did asc;
+
+select * from departments
+left outer join hod
+on departments.did = hod.hid
+order by did asc;
