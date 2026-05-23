@@ -1,0 +1,142 @@
+1.
+[JOINS] List the name of each employee along with their job title and department name.
+
+SELECT emp.name, job.job_title, dept.dept_name
+FROM Employees emp
+JOIN Jobs job ON emp.job_id = job.job_id
+JOIN Departments dept ON emp.dept_id = dept.dept_id;
+
+2.
+[SUBQUERY] Find all employees whose salary is higher than the average salary of the 'IT' department.
+
+SELECT name, salary
+FROM Employees
+WHERE salary > (
+SELECT AVG(salary)
+FROM Employees emp
+JOIN Departments dept ON emp.dept_id = dept.dept_id
+WHERE dept.dept_name = 'IT');
+
+3.
+[GROUP BY] Calculate the total salary expenditure for each department name (not ID).
+
+SELECT dept.dept_name, SUM(emp.salary) AS total_salary
+FROM Employees emp
+JOIN Departments dept ON emp.dept_id = dept.dept_id
+GROUP BY dept.dept_name;
+
+5.
+[SELF JOIN] Retrieve a list of employee names and their respective manager's names.
+
+SELECT emp.name AS employee_name, mgr.name AS manager_name
+FROM Employees emp
+LEFT JOIN Employees mgr ON emp.manager_id = mgr.emp_id;
+
+6.
+[ORDER BY] Find the top 3 highest-paid employees and list them in descending order.
+
+SELECT name, salary
+FROM Employees
+ORDER BY salary DESC
+LIMIT 3;
+
+7.
+[JOINS + WHERE] Find all Developers working in the 'San Francisco' location.
+
+SELECT emp.name, job.job_title, dept.location
+FROM Employees emp
+JOIN Jobs job ON emp.job_id = job.job_id
+JOIN Departments dept ON emp.dept_id = dept.dept_id
+WHERE job.job_title = 'Developer'
+AND dept.location = 'San Francisco';
+
+8.
+[GROUP BY] Find the number of employees hired each year.
+
+SELECT YEAR(hire_date) AS hire_year, COUNT(*) AS employees_hired
+FROM Employees
+GROUP BY YEAR(hire_date)
+ORDER BY hire_year;
+
+9.
+[HAVING] List job titles where the maximum salary of an employee in that role is less than 100,000.
+
+SELECT job.job_title, MAX(emp.salary) AS max_salary FROM Employees emp
+JOIN Jobs job ON emp.job_id = job.job_id
+GROUP BY job.job_title
+HAVING MAX(emp.salary) < 100000;
+
+10.
+[SUBQUERY] Find the names of employees who work in the same department as 'David'.
+
+SELECT name FROM Employees
+WHERE dept_id = (SELECT dept_id FROM Employees WHERE name = 'David')
+AND name != 'David';
+
+12.
+[COMPLEX FILTER] Find employees who were hired between 2018 and 2020 and earn more than 60,000.
+
+SELECT name, hire_date, salary  FROM Employees
+WHERE hire_date BETWEEN '2018-01-01' AND '2020-12-31' AND salary > 60000;
+
+14.
+[JOINS] Find the job title and salary of the employee with ID 504.
+
+SELECT job.job_title, emp.salary
+FROM Employees emp
+JOIN Jobs job ON emp.job_id = job.job_id
+WHERE emp.emp_id = 504;
+
+15.
+[GROUP BY] For each manager (by ID), find the minimum salary of the people reporting to them.
+
+SELECT manager_id, MIN(salary) AS min_salary FROM Employees
+WHERE manager_id IS NOT NULL
+GROUP BY manager_id;
+
+17.
+[AGGREGATION] Find the difference between the highest and lowest salary in the company.
+
+SELECT MAX(salary) - MIN(salary) AS salary_difference
+FROM Employees;
+
+18.
+[JOIN + ORDER BY] Display employee names and hire dates, sorted by department name (A-Z) and then by salary (High to Low).
+
+SELECT emp.name, emp.hire_date, dept.dept_name, emp.salary 
+FROM Employees emp
+JOIN Departments dept ON emp.dept_id = dept.dept_id
+ORDER BY dept.dept_name ASC, emp.salary DESC;
+
+19.
+[HAVING] Identify managers (by ID) who manage more than 2 people.
+
+SELECT manager_id, COUNT(*) AS team_size FROM Employees
+WHERE manager_id IS NOT NULL
+GROUP BY manager_id
+HAVING COUNT(*) > 2;
+
+21.
+[LEFT JOIN] List all job titles and the number of employees currently holding that job.
+
+SELECT job.job_title, COUNT(emp.emp_id) AS emp_count
+FROM Jobs job
+LEFT JOIN Employees emp ON job.job_id = emp.job_id
+GROUP BY job.job_title;
+
+22.
+[JOIN + LIKE] Find employees in the 'Finance' department whose names contain the letter 'i'.
+SELECT emp.name
+FROM Employees emp
+JOIN Departments dept ON emp.dept_id = dept.dept_id
+WHERE dept.dept_name = 'Finance'
+AND emp.name LIKE '%i%';
+
+
+25.
+[JOINS] Find all employees who report to 'Charlie'.
+
+SELECT emp.name AS employee_name
+FROM Employees emp
+JOIN Employees mgr ON emp.manager_id = mgr.emp_id
+WHERE mgr.name = 'Charlie';
