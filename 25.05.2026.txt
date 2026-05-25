@@ -1,0 +1,32 @@
+use vit
+
+db.createCollection("Student")
+
+show collections
+
+db.Student.drop()
+
+show collections
+
+db.createCollection("Employee")
+
+db.Employee.insert({
+    name: "Hitesh",
+    department: "CSE"
+})
+
+db.Employee.insert({
+    name: "English",
+    marks: 95,
+    place: "Bhubaneswar"
+})
+
+db.Employee.insert({
+    name: "Rahul",
+    department: "IT",
+    salary: 50000
+})
+
+db.Employee.find()
+
+db.Employee.find({ department: "CSE" })
